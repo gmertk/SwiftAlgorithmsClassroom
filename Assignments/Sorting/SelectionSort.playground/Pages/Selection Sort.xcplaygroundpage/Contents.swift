@@ -10,13 +10,11 @@ Better define an inner function to find the next minimum in the array.
 */
 
 func selectionSort(var array: [Int]) -> [Int] {
-    guard array.count >= 2 else {
+    guard array.count > 1 else {
         return array
     }
     
-    var startIndex = array.startIndex
-    
-    while startIndex != array.endIndex {
+    for startIndex in array.startIndex..<array.endIndex {
         var lowestIndex = array.startIndex
         var lowestValue = Int.max
         for index in startIndex..<array.endIndex {
@@ -30,8 +28,6 @@ func selectionSort(var array: [Int]) -> [Int] {
         if lowestIndex != startIndex {
             swap(&array[lowestIndex], &array[startIndex])
         }
-        
-        startIndex = startIndex.advancedBy(1)
     }
     
     return array

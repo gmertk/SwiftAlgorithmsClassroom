@@ -12,9 +12,7 @@ func selectionSort<T>(var array: Array<T>, @noescape isOrderedBefore: (a: T, b: 
         return array
     }
     
-    var startIndex = array.startIndex
-    
-    while startIndex != array.endIndex {
+    for startIndex in array.startIndex..<array.endIndex {
         var lowestIndex = startIndex
         var lowestValue = array[startIndex]
         for sweepIndex in startIndex..<array.endIndex {
@@ -28,8 +26,6 @@ func selectionSort<T>(var array: Array<T>, @noescape isOrderedBefore: (a: T, b: 
         if startIndex != lowestIndex {
             swap(&array[startIndex], &array[lowestIndex])
         }
-        
-        startIndex = startIndex.advancedBy(1)
     }
     
     return array

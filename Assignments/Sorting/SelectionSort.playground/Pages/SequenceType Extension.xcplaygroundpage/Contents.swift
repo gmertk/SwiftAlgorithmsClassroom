@@ -8,15 +8,13 @@ Instead of only sorting arrays, modify your function to sort any type conforming
 extension SequenceType {
     
     func selectionSort(@noescape isOrderedBefore: (a: Generator.Element, b: Generator.Element) -> Bool) -> [Generator.Element]  {
-        
         var array = Array<Generator.Element>(self)
+        
         guard array.count > 1 else {
             return array
         }
         
-        var startIndex = array.startIndex
-        
-        while startIndex != array.endIndex {
+        for startIndex in array.startIndex..<array.endIndex {
             var lowestIndex = startIndex
             var lowestValue = array[startIndex]
             
@@ -31,8 +29,6 @@ extension SequenceType {
             if startIndex != lowestIndex {
                 swap(&array[startIndex], &array[lowestIndex])
             }
-            
-            startIndex = startIndex.advancedBy(1)
         }
         
         return array
