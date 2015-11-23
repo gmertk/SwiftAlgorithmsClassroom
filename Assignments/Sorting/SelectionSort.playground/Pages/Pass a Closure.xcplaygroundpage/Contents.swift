@@ -8,9 +8,25 @@ Also check what `@noescape` means in Swift.
 Since you now use another function to do the comparison, you can remove the `Comparable` constraint.
 */
 
+func selectionSort<T: Comparable>(var sequence: [T], isOrderedBefore: (T, T) -> Bool = { $0 < $1 }) -> [T] {
+    
+    for (i, _) in sequence.enumerate() {
+        var index = i
+        
+        for (j, _) in sequence.enumerate() where j > i && isOrderedBefore(sequence[j], sequence[index]) {
+            index = j
+        }
+        
+        if index != i { swap(&sequence[i], &sequence[index]) }
+    }
+    
+    return sequence
+}
     
 
-//assert(selectionSort([3, 1, 2], isOrderedBefore: <).isSorted())
+assert(selectionSort([3, 1, 2]).isSorted())
+assert(selectionSort([3, 1, 2], isOrderedBefore: <).isSorted())
+assert(selectionSort([3, 1, 2], isOrderedBefore: >).reverse().isSorted())
 
 
 /*:
