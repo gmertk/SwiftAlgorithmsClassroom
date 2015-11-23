@@ -7,10 +7,26 @@ Also check what `@noescape` means in Swift.
 ****
 Since you now use another function to do the comparison, you can remove the `Comparable` constraint.
 */
-
+func selectionSort<T>(var array: [T], @noescape isOrderedBefore: (T, T) -> Bool) -> [T] {
+    var minIndex:Int
+    let length = array.count
+    
+    for i in 0..<length-1 {
+        minIndex = i
+        for j in i+1..<length {
+            if isOrderedBefore(array[j], array[minIndex]) {
+                minIndex = j
+            }
+        }
+        if(minIndex != i){
+            swap(&array[minIndex], &array[i])
+        }
+    }
+    return array
+}
     
 
-//assert(selectionSort([3, 1, 2], isOrderedBefore: <).isSorted())
+assert(selectionSort([3, 1, 2], isOrderedBefore: <).isSorted())
 
 
 /*:
