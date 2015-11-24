@@ -10,7 +10,11 @@ Since you now use another function to do the comparison, you can remove the `Com
 
 
 func selectionSort<T>(var array: [T], @noescape isOrderedBefore: (T, T) -> Bool) -> [T] {
-  func findMinIndex(array: [T], startingFrom start: Int = 0, @noescape isOrderedBefore: (T, T) -> Bool) -> Int {
+  func findMinIndex(array: [T], startingFrom start: Int = 0, @noescape isOrderedBefore: (T, T) -> Bool) -> Int? {
+    guard 0..<array.count ~= start else {
+      return nil
+    }
+    
     var minIndex = start
     for (index, value) in array[start..<array.count].enumerate() {
       if isOrderedBefore(value, array[minIndex]) {
@@ -26,9 +30,10 @@ func selectionSort<T>(var array: [T], @noescape isOrderedBefore: (T, T) -> Bool)
   }
   
   for i in 0..<array.count-1 {
-    let posmin = findMinIndex(array, startingFrom: i, isOrderedBefore: isOrderedBefore)
-    if i != posmin {
-      swap(&array[i], &array[posmin])
+    if let posmin = findMinIndex(array, startingFrom: i, isOrderedBefore: isOrderedBefore) {
+      if i != posmin {
+        swap(&array[i], &array[posmin])
+      }
     }
   }
   

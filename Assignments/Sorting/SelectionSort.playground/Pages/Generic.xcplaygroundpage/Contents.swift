@@ -9,7 +9,11 @@ For practicing purposes you may want to rewrite the function from scratch rather
 
 
 func selectionSort<T: Comparable>(var array: [T]) -> [T] {
-  func findMinIndex(array: [T], startingFrom start: Int = 0) -> Int {
+  func findMinIndex(array: [T], startingFrom start: Int = 0) -> Int? {
+    guard 0..<array.count ~= start else {
+      return nil
+    }
+    
     var minIndex = start
     for (index, value) in array[start..<array.count].enumerate() {
       if value < array[minIndex] {
@@ -25,9 +29,10 @@ func selectionSort<T: Comparable>(var array: [T]) -> [T] {
   }
   
   for i in 0..<array.count-1 {
-    let posmin = findMinIndex(array, startingFrom: i)
-    if i != posmin {
-      swap(&array[i], &array[posmin])
+    if let posmin = findMinIndex(array, startingFrom: i) {
+      if i != posmin {
+        swap(&array[i], &array[posmin])
+      }
     }
   }
   

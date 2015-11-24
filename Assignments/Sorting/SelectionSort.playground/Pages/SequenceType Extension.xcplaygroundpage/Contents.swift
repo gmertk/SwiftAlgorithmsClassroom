@@ -7,7 +7,11 @@ Instead of only sorting arrays, modify your function to sort any type conforming
 
 extension SequenceType {
   func selectionSort(@noescape isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> [Generator.Element] {
-    func findMinIndex(array: [Generator.Element], startingFrom start: Int = 0, @noescape isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> Int {
+    func findMinIndex(array: [Generator.Element], startingFrom start: Int = 0, @noescape isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> Int? {
+      guard 0..<array.count ~= start else {
+        return nil
+      }
+      
       var minIndex = start
       for (index, value) in array[start..<array.count].enumerate() {
         if isOrderedBefore(value, array[minIndex]) {
@@ -24,9 +28,10 @@ extension SequenceType {
     }
     
     for i in 0..<array.count-1 {
-      let posmin = findMinIndex(array, startingFrom: i, isOrderedBefore: isOrderedBefore)
-      if i != posmin {
-        swap(&array[i], &array[posmin])
+      if let posmin = findMinIndex(array, startingFrom: i, isOrderedBefore: isOrderedBefore) {
+        if i != posmin {
+          swap(&array[i], &array[posmin])
+        }
       }
     }
     
@@ -36,7 +41,6 @@ extension SequenceType {
 
 assert([1, 3, 2].selectionSort(<).isSorted())
 assert([1: "b", 2: "a"].selectionSort({$0.0 > $1.0}).isSorted({$0.0 > $1.0}))
-print([1: "b", 2: "a"].selectionSort({$0.0 > $1.0}))
 
 /*:
 [Table of Contents](Table%20of%20Contents) | [Previous](@previous) | [Next](@next)
