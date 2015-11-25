@@ -12,14 +12,12 @@ Better define an inner function to find the next minimum in the array.
 func selectionSort(array: [Int]) -> [Int] {
     // You may declare array argument with var keyword so that it is copied.
     var anArray = array
-    var index = 0
-    while (!anArray.isSorted()) {
+    for index in 0..<anArray.count {
         let subArray = Array(anArray[index..<anArray.count])
         let minIndex = minimumIndexInArray(subArray)
         if ((index+minIndex) < anArray.count && minIndex != 0) {
             swap(&anArray[index], &anArray[index+minIndex])
         }
-        index++
     }
     
     return anArray

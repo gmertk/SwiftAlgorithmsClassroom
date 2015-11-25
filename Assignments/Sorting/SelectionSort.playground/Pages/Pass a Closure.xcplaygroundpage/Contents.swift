@@ -9,15 +9,13 @@ Since you now use another function to do the comparison, you can remove the `Com
 */
 
 func selectionSort<X:Comparable>(array:[X], @noescape isOrderedBefore: (X,X) -> Bool) -> [X] {
-    var index = 0
     var anArray = array
-    while(!anArray.isSorted(isOrderedBefore)) {
+    for index in 0..<anArray.count {
         let subArray = Array(anArray[index..<anArray.count])
         let minIndex = indexOfMin(subArray,isOrderedBefore: isOrderedBefore)
         if index+minIndex < anArray.count && minIndex != 0 {
             swap(&anArray[index], &anArray[index+minIndex])
         }
-        index++
     }
     return anArray
 }

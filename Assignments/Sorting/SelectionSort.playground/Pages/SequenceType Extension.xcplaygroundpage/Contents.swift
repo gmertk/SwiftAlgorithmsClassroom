@@ -21,14 +21,12 @@ extension SequenceType {
         guard array.count > 1 else {
             return array
         }
-        var index = 0
-        while(!array.isSorted(isOrderedBefore)) {
+        for index in 0..<array.count {
             let subArray = Array(array[index..<array.count])
             let minIndex = indexOfMin(subArray,isOrderedBefore: isOrderedBefore)
             if index+minIndex < array.count && minIndex != 0 {
                 swap(&array[index], &array[index+minIndex])
             }
-            index++
         }
         return array
         
