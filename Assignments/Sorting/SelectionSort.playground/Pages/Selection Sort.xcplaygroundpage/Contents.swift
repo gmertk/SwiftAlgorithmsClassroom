@@ -9,11 +9,27 @@ Better define an inner function to find the next minimum in the array.
 
 */
 
-func selectionSort(array: [Int]) -> [Int] {
+func selectionSort(var array: [Int]) -> [Int] {
     // You may declare array argument with var keyword so that it is copied.
-
+    
+    var min: Int
+    
+    for var i = 0; i < array.count-1; ++i {
+        min = i
+        for var j=i+1; j < array.count; ++j{
+            if array[j] < array[min]{
+                min = j
+            }
+        }
+        
+        if min != i{
+            swap(&array[min], &array[i])
+        }
+    }
+    
     return array
 }
+
 
 
 //: Test your function with assert. Make sure asserts don't raise any errors. `isSorted` is already defined for you in `Sources/Utilities.swift`. You can add more test cases.
