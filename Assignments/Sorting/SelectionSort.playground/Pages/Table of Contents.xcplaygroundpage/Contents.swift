@@ -11,3 +11,136 @@ When you ask someone to sort a deck of cards in ascending order by hand, you wil
 ****
 [Start with the first step](@next)
 */
+//
+// Part 1
+//
+
+func selectionSort(originalArray: [Int]) -> [Int] {
+    
+    var newArray = originalArray
+    var startingIndex = 0
+    var otherIndex = 1
+    var arrayLength = newArray.count
+    
+    repeat {
+        repeat {
+            if newArray[startingIndex] > newArray[otherIndex] {
+                swap(&newArray[startingIndex], &newArray[otherIndex])
+                startingIndex = 0
+                otherIndex = 1
+            } else {
+                otherIndex++
+            }
+        } while otherIndex < (arrayLength - 1)
+        
+        startingIndex++
+        otherIndex = startingIndex + 1
+        
+    } while startingIndex < arrayLength - 1
+    
+    return newArray
+}
+
+//
+// Part 2
+//
+
+func selectionSort<T: Comparable>(originalArray: [T]) -> [T] {
+    
+    var newArray = originalArray
+    var startingIndex = 0
+    var otherIndex = 1
+    var arrayLength = newArray.count
+    
+    repeat {
+        repeat {
+            if newArray[startingIndex] > newArray[otherIndex] {
+                swap(&newArray[startingIndex], &newArray[otherIndex])
+                startingIndex = 0
+                otherIndex = 1
+            } else {
+                otherIndex++
+            }
+        } while otherIndex < (arrayLength - 1)
+        
+        startingIndex++
+        otherIndex = startingIndex + 1
+        
+    } while startingIndex < arrayLength - 1
+    
+    return newArray
+}
+
+
+//
+// Part 3
+//
+
+
+func selectionSort<T>(originalArray: [T], @noescape isOrderedBefore: (firstElement: T, secondElement: T) -> Bool) -> [T] {
+    
+    var newArray = originalArray
+    var startingIndex = 0
+    var otherIndex = 1
+    var arrayLength = newArray.count
+    
+    repeat {
+        repeat {
+            if isOrderedBefore(firstElement: newArray[startingIndex], secondElement: newArray[otherIndex]) {
+                swap(&newArray[startingIndex], &newArray[otherIndex])
+                startingIndex = 0
+                otherIndex = 1
+            } else {
+                otherIndex++
+            }
+        } while otherIndex < (arrayLength - 1)
+        
+        startingIndex++
+        otherIndex = startingIndex + 1
+        
+    } while startingIndex < arrayLength - 1
+    
+    return newArray
+}
+
+//
+// Part 4
+//
+
+extension SequenceType {
+    func selectionSort(isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> [Generator.Element] {
+        
+        var newArray = Array<Generator.Element>(self)
+        var startingIndex = 0
+        var otherIndex = 1
+        var arrayLength = newArray.count
+        
+        repeat {
+            repeat {
+                if isOrderedBefore(newArray[startingIndex], newArray[otherIndex]) {
+                    swap(&newArray[startingIndex], &newArray[otherIndex])
+                    startingIndex = 0
+                    otherIndex = 1
+                } else {
+                    otherIndex++
+                }
+            } while otherIndex < (arrayLength - 1)
+            
+            startingIndex++
+            otherIndex = startingIndex + 1
+            
+        } while startingIndex < arrayLength - 1
+        
+        return newArray
+    }
+}
+
+
+
+
+
+
+
+
+
+
