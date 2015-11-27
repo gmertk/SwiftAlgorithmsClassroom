@@ -5,12 +5,10 @@ Write a `selectionSort` function that takes an integer array and returns it as s
 
 Note that there is already a `swap` function in the standard library. You need to guard it from swapping a location with itself.
 ****
-Better define an inner function to find the next minimum in the array.
-
+Better define an inner function to find the next minimum in the array. I think it makes the algorithm easier to grasp. If you think it is useless, you can omit the inner function and write it as an inner loop. Note that this function call could make it less performant depending on the compiler's optimization.
 */
 
 func selectionSort(var array: [Int]) -> [Int] {
-    // You may declare array argument with var keyword so that it is copied.
     func minPosition(array: [Int], start: Int) -> Int {
         var minPos = start
         for i in start..<array.count where array[i] < array[minPos] {
@@ -28,7 +26,6 @@ func selectionSort(var array: [Int]) -> [Int] {
 
     return array
 }
-
 
 //: Test your function with assert. Make sure asserts don't raise any errors. `isSorted` is already defined for you in `Sources/Utilities.swift`. You can add more test cases.
 
