@@ -7,9 +7,18 @@ Note that there is already a `swap` function in the standard library. However, y
 
 */
 
-func insertionSort<T>(var array: [T], @noescape isOrderedBefore: (T, T) -> Bool) -> [T] {
-
-    return array
+func insertionSort<T>( array: [T], @noescape isOrderedBefore: (T, T) -> Bool) -> [T] {
+    var sortedArray : [T] = []
+    for item in array {
+        var i = 0
+        sortedArray.insert(item, atIndex: i)
+       
+        while sortedArray.count>1 && i<sortedArray.count-1 && !isOrderedBefore(item,sortedArray[i+1])  {
+            swap(&sortedArray[i], &sortedArray[i+1])
+            i++
+        }
+    }
+    return sortedArray
 }
 
 
@@ -22,8 +31,8 @@ assert(items == ["c", "d", "b"]) // double check that items does not change
 
 assert(insertionSort([1], isOrderedBefore: <).isSorted())
 assert(insertionSort([1, 2, 3], isOrderedBefore: <).isSorted())
-//assert(insertionSort([1, 2, 3], isOrderedBefore: >).isSorted(>))
-//assert(insertionSort([3, 2, 1, 2, -1], isOrderedBefore: <).isSorted())
+assert(insertionSort([1, 2, 3], isOrderedBefore: >).isSorted(>))
+assert(insertionSort([3, 2, 1, 2, -1], isOrderedBefore: <).isSorted())
 
 /*:
 [Table of Contents](Table%20of%20Contents) | [Previous](@previous) | [Next](@next)
