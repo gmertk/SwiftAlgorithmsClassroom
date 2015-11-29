@@ -8,22 +8,30 @@ Note that there is already a `swap` function in the standard library. However, y
 */
 
 func insertionSort<T>(var array: [T], @noescape isOrderedBefore: (T, T) -> Bool) -> [T] {
-
+    // based on: https://en.wikipedia.org/wiki/Insertion_sort
+    for i in 1..<array.count {
+        let x = array[i]
+        var j = i
+        while j > 0 && isOrderedBefore(x, array[j-1]) {
+            array[j] = array[j-1]
+            j--
+        }
+        array[j] = x
+    }
     return array
 }
-
 
 //: Test your function with assert. Make sure asserts don't raise any errors. `isSorted` is already defined for you in `Sources/Utilities.swift`. You can add more test cases.
 
 let items = ["c", "d", "b"]
 let sortedItems = insertionSort(items, isOrderedBefore: <)
-//assert(sortedItems.isSorted())
+assert(sortedItems.isSorted())
 assert(items == ["c", "d", "b"]) // double check that items does not change
 
 assert(insertionSort([1], isOrderedBefore: <).isSorted())
 assert(insertionSort([1, 2, 3], isOrderedBefore: <).isSorted())
-//assert(insertionSort([1, 2, 3], isOrderedBefore: >).isSorted(>))
-//assert(insertionSort([3, 2, 1, 2, -1], isOrderedBefore: <).isSorted())
+assert(insertionSort([1, 2, 3], isOrderedBefore: >).isSorted(>))
+assert(insertionSort([3, 2, 1, 2, -1], isOrderedBefore: <).isSorted())
 
 /*:
 [Table of Contents](Table%20of%20Contents) | [Previous](@previous) | [Next](@next)
