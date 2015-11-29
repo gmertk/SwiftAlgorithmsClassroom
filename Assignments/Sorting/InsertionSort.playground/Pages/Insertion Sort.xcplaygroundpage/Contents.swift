@@ -9,9 +9,31 @@ Note that there is already a `swap` function in the standard library. However, y
 
 func insertionSort<T>(var array: [T], @noescape isOrderedBefore: (T, T) -> Bool) -> [T] {
 
+    guard array.count > 1 else {
+        return array
+    }
+    
+    var i = 0
+    var j = 1
+    
+    repeat {
+        repeat {
+            if isOrderedBefore(array[i], array[j]) == false {
+                let itemToBeChanged = array[j]
+                array.removeAtIndex(j)
+                array.insert(itemToBeChanged, atIndex: i)
+                i = 0
+                j = 1
+                print("found swapping")
+            } else { j++ }
+        } while j < array.count - 1
+        i++
+        j = i + 1
+        print("moving index i")
+    } while i < array.count - 1
+    
     return array
 }
-
 
 //: Test your function with assert. Make sure asserts don't raise any errors. `isSorted` is already defined for you in `Sources/Utilities.swift`. You can add more test cases.
 
