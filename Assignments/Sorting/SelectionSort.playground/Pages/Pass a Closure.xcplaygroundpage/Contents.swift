@@ -8,47 +8,30 @@ Also check what `@noescape` means in Swift.
 Since you now use another function to do the comparison, you can remove the `Comparable` constraint.
 */
 
-
 func selectionSort<T>(var array: [T], @noescape isOrderedBefore: (T, T) -> Bool) -> [T] {
-  func findMinIndex(array: [T], startingFrom start: Int = 0, @noescape isOrderedBefore: (T, T) -> Bool) -> Int? {
-    guard 0..<array.count ~= start else {
-      return nil
+    func minPosition(array: [T], start: Int, @noescape isOrderedBefore: (T, T) -> Bool) -> Int {
+        var minPos = start
+        for i in start..<array.count where isOrderedBefore(array[i], array[minPos]) {
+            minPos = i
+        }
+        return minPos
     }
-    
-    var minIndex = start
-    for (index, value) in array[start..<array.count].enumerate() {
-      if isOrderedBefore(value, array[minIndex]) {
-        minIndex = index + start
-      }
+
+    for i in 0..<array.count {
+        let minIndex = minPosition(array, start: i, isOrderedBefore: isOrderedBefore)
+        if i != minIndex {
+            swap(&array[i], &array[minIndex])
+        }
     }
-    return minIndex
-  }
-  
-  // an empty array or one that contains just one element is already sorted
-  guard array.count > 1 else {
+
     return array
-  }
-  
-  for i in 0..<array.count-1 {
-    if let posmin = findMinIndex(array, startingFrom: i, isOrderedBefore: isOrderedBefore) {
-      if i != posmin {
-        swap(&array[i], &array[posmin])
-      }
-    }
-  }
-  
-  return array
 }
 
 
-assert(selectionSort([3, 1, 2], isOrderedBefore: <).isSorted())
+assert(selectionSort(["c", "b", "d", "a", "A"], isOrderedBefore: <).isSorted())
 assert(selectionSort(["c", "a", "b"], isOrderedBefore: <).isSorted())
-assert(selectionSort(["z", "x", "y"], isOrderedBefore: <).isSorted())
-assert(selectionSort([1], isOrderedBefore: <).isSorted())
-assert(selectionSort([1, 2, 3], isOrderedBefore: <).isSorted())
+assert(selectionSort(["c", "a", "b"], isOrderedBefore: >).isSorted(>))
 assert(selectionSort([3, 1, 2], isOrderedBefore: <).isSorted())
-assert(selectionSort([3, 2, 1, 2, 1], isOrderedBefore: <).isSorted())
-
 
 /*:
 [Table of Contents](Table%20of%20Contents) | [Previous](@previous) | [Next](@next)

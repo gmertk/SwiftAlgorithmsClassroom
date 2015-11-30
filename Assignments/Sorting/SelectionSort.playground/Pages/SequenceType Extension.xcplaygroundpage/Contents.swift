@@ -6,40 +6,26 @@ Instead of only sorting arrays, modify your function to sort any type conforming
 */
 
 extension SequenceType {
-  func selectionSort(@noescape isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> [Generator.Element] {
-    var array = Array(self)
-    
-    // an empty sequence or one that contains just one element is already sorted
-    guard array.count > 1 else {
-      return array
-    }
-    
-    for i in 0..<array.count-1 {
-      if let posmin = array.minIndex(startingFrom: i, isOrderedBefore: isOrderedBefore) {
-        if i != posmin {
-          swap(&array[i], &array[posmin])
+    func selectionSort(@noescape isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> [Generator.Element] {
+        func minPosition(array: [Generator.Element], start: Int, @noescape isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> Int {
+            var minPos = start
+            for i in start..<array.count where isOrderedBefore(array[i], array[minPos]) {
+                minPos = i
+            }
+            return minPos
         }
-      }
-    }
-    
-    return array
-  }
-}
 
-extension Array {
-  func minIndex(startingFrom start: Int = 0, @noescape isOrderedBefore: (Generator.Element, Generator.Element) -> Bool) -> Int? {
-    guard 0..<self.count ~= start else {
-      return nil
+        var array = Array(self)
+        for i in 0..<array.count {
+            let minIndex = minPosition(array, start: i, isOrderedBefore: isOrderedBefore)
+            if i != minIndex {
+                swap(&array[i], &array[minIndex])
+            }
+        }
+        
+        return array
     }
-    
-    var minIndex = start
-    for (index, value) in self[start..<self.count].enumerate() {
-      if isOrderedBefore(value, self[minIndex]) {
-        minIndex = index
-      }
-    }
-    return minIndex + start
-  }
+
 }
 
 assert([1, 3, 2].selectionSort(<).isSorted())

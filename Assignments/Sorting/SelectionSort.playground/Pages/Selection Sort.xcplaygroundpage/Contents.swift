@@ -5,45 +5,35 @@ Write a `selectionSort` function that takes an integer array and returns it as s
 
 Note that there is already a `swap` function in the standard library. You need to guard it from swapping a location with itself.
 ****
-Better define an inner function to find the next minimum in the array.
-
+Better define an inner function to find the next minimum in the array. I think it makes the algorithm easier to grasp. If you think it is useless, you can omit the inner function and write it as an inner loop. Note that this function call could make it less performant depending on the compiler's optimization.
 */
 
-
 func selectionSort(var array: [Int]) -> [Int] {
-  func findMinIndex(array: [Int], startingFrom start: Int = 0) -> Int? {
-    guard 0..<array.count ~= start else {
-      return nil
+    func minPosition(array: [Int], start: Int) -> Int {
+        var minPos = start
+        for i in start..<array.count where array[i] < array[minPos] {
+            minPos = i
+        }
+        return minPos
     }
-    
-    var minIndex = start
-    for (index, value) in array[start..<array.count].enumerate() {
-      if value < array[minIndex] {
-        minIndex = index + start
-      }
+
+    for i in 0..<array.count {
+        let minIndex = minPosition(array, start: i)
+        if i != minIndex {
+            swap(&array[i], &array[minIndex])
+        }
     }
-    return minIndex
-  }
-  
-  // an empty array or one that contains just one element is already sorted
-  guard array.count > 1 else {
+
     return array
-  }
-  
-  for i in 0..<array.count-1 {
-    if let posmin = findMinIndex(array, startingFrom: i) {
-      if i != posmin {
-        swap(&array[i], &array[posmin])
-      }
-    }
-  }
-  
-  return array
 }
 
-
 //: Test your function with assert. Make sure asserts don't raise any errors. `isSorted` is already defined for you in `Sources/Utilities.swift`. You can add more test cases.
-assert(selectionSort([]).isSorted())
+
+let items = [3, 1, 4, 1, 5, 9]
+let sortedItems = selectionSort(items)
+assert(sortedItems.isSorted())
+// double check that items does not change
+assert(items == [3, 1, 4, 1, 5, 9])
 assert(selectionSort([1]).isSorted())
 assert(selectionSort([1, 2, 3]).isSorted())
 assert(selectionSort([3, 1, 2]).isSorted())

@@ -9,8 +9,8 @@ Every few days an assignment will be given by creating an [issue](https://github
 The topics are:
 
 - Sorting
-  - Selection sort
-  - Insertion sort
+  - [Selection sort](https://github.com/gmertk/SwiftAlgorithmsClassroom/issues/2)
+  - [Insertion sort](https://github.com/gmertk/SwiftAlgorithmsClassroom/issues/16)
   - Shell sort
   - Mergesort
   - Quicksort
