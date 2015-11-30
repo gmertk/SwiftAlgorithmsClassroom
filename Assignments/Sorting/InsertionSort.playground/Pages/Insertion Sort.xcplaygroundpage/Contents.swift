@@ -7,18 +7,19 @@ Note that there is already a `swap` function in the standard library. However, y
 
 */
 
-func insertionSort<T>( array: [T], @noescape isOrderedBefore: (T, T) -> Bool) -> [T] {
-    var sortedArray : [T] = []
-    for item in array {
-        var i = 0
-        sortedArray.insert(item, atIndex: i)
-       
-        while sortedArray.count>1 && i<sortedArray.count-1 && !isOrderedBefore(item,sortedArray[i+1])  {
-            swap(&sortedArray[i], &sortedArray[i+1])
-            i++
+func insertionSort<T>(var array: [T], @noescape isOrderedBefore: (T, T) -> Bool) -> [T] {
+    for i in 1..<array.count {
+        let currentItem = array[i]
+        var j = i
+        //shift items to right until finding the right place of our currentItem
+        //Always we will have the item on the left of currentItem sorted
+        while j>0 && isOrderedBefore(currentItem,array[j-1]) {
+            array[j] = array[j-1]
+            j--
         }
+        array[j] = currentItem
     }
-    return sortedArray
+    return array
 }
 
 
