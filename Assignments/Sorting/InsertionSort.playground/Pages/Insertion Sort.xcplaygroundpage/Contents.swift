@@ -8,7 +8,9 @@ Note that there is already a `swap` function in the standard library. However, y
 */
 
 func insertionSort<T>(var array: [T], @noescape isOrderedBefore: (T, T) -> Bool) -> [T] {
-    for var i = 1; i < array.count; i++ {
+    guard array.count > 1 else { return array }
+    
+    for i in 1..<array.count {
         let currentItem = array[i]
         var j = i
         while j > 0 && isOrderedBefore(currentItem, array[j-1]) {
@@ -29,6 +31,7 @@ let sortedItems = insertionSort(items, isOrderedBefore: <)
 assert(sortedItems.isSorted())
 assert(items == ["c", "d", "b"]) // double check that items does not change
 
+assert(insertionSort([Int](), isOrderedBefore: <).isSorted())
 assert(insertionSort([1], isOrderedBefore: <).isSorted())
 assert(insertionSort([1, 2, 3], isOrderedBefore: <).isSorted())
 assert(insertionSort([1, 2, 3], isOrderedBefore: >).isSorted(>))
