@@ -9,8 +9,23 @@ Better define an inner function to find the next minimum in the array.
 
 */
 
-func selectionSort(array: [Int]) -> [Int] {
-    // You may declare array argument with var keyword so that it is copied.
+func selectionSort(var array: [Int]) -> [Int] {
+    guard array.count > 1 else {return array}
+    
+    func minIndex(array: [Int], startIndex: Int) -> Int {
+        var minIndex = startIndex
+        for i in startIndex+1..<array.count where array[i] < array[minIndex] {
+            minIndex = i
+        }
+        return minIndex
+    }
+    
+    for i in 0..<array.count {
+        let minPos = minIndex(array, startIndex: i)
+        if i != minPos {
+            swap(&array[i], &array[minPos])
+        }
+    }
 
     return array
 }
@@ -20,8 +35,8 @@ func selectionSort(array: [Int]) -> [Int] {
 
 assert(selectionSort([1]).isSorted())
 assert(selectionSort([1, 2, 3]).isSorted())
-//assert(selectionSort([3, 1, 2]).isSorted())
-//assert(selectionSort([3, 2, 1, 2, 1]).isSorted())
+assert(selectionSort([3, 1, 2]).isSorted())
+assert(selectionSort([3, 2, 1, 2, 1]).isSorted())
 
 /*:
 [Table of Contents](Table%20of%20Contents) | [Previous](@previous) | [Next](@next)
