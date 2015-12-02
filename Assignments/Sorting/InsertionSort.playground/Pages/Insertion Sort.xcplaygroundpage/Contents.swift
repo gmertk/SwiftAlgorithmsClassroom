@@ -8,7 +8,18 @@ Note that there is already a `swap` function in the standard library. However, y
 */
 
 func insertionSort<T>(var array: [T], @noescape isOrderedBefore: (T, T) -> Bool) -> [T] {
-
+    guard array.count > 1 else { return array }
+    
+    for i in 1..<array.count {
+        let currentItem = array[i]
+        var j = i
+        while j > 0 && isOrderedBefore(currentItem, array[j-1]) {
+            array[j] = array[j-1]
+            j--
+        }
+        array[j] = currentItem
+    }
+    
     return array
 }
 
@@ -17,13 +28,14 @@ func insertionSort<T>(var array: [T], @noescape isOrderedBefore: (T, T) -> Bool)
 
 let items = ["c", "d", "b"]
 let sortedItems = insertionSort(items, isOrderedBefore: <)
-//assert(sortedItems.isSorted())
+assert(sortedItems.isSorted())
 assert(items == ["c", "d", "b"]) // double check that items does not change
 
+assert(insertionSort([Int](), isOrderedBefore: <).isSorted())
 assert(insertionSort([1], isOrderedBefore: <).isSorted())
 assert(insertionSort([1, 2, 3], isOrderedBefore: <).isSorted())
-//assert(insertionSort([1, 2, 3], isOrderedBefore: >).isSorted(>))
-//assert(insertionSort([3, 2, 1, 2, -1], isOrderedBefore: <).isSorted())
+assert(insertionSort([1, 2, 3], isOrderedBefore: >).isSorted(>))
+assert(insertionSort([3, 2, 1, 2, -1], isOrderedBefore: <).isSorted())
 
 /*:
 [Table of Contents](Table%20of%20Contents) | [Previous](@previous) | [Next](@next)
