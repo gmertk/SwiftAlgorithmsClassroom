@@ -57,11 +57,10 @@ class KnuthSequence: SequenceType {
       h = 3*h + 1
     }
     return anyGenerator {
-      defer {
-        h = (h - 1)/3
-      }
-      return h > 0 ?
-        h :
+      let gap = h
+      h = (h - 1)/3
+      return gap > 0 ?
+        gap :
         nil
     }
   }
