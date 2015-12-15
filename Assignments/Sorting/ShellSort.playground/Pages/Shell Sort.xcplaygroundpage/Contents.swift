@@ -73,7 +73,7 @@ class KnuthSequence: SequenceType {
             print("number: \(number)")
             number = (3 ** index - 1) / 2
             index -= 1
-            return number > 1 ? number : nil
+            return number > 0 ? number : nil
         }
     }
 }
