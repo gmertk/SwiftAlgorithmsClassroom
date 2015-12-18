@@ -11,7 +11,7 @@ The topics are:
 - Sorting
   - [Selection sort](https://github.com/gmertk/SwiftAlgorithmsClassroom/issues/2)
   - [Insertion sort](https://github.com/gmertk/SwiftAlgorithmsClassroom/issues/16)
-  - Shell sort
+  - [Shell sort](https://github.com/gmertk/SwiftAlgorithmsClassroom/issues/28)
   - Mergesort
   - Quicksort
   - Heapsort, heaps and priority queues
