@@ -9,22 +9,20 @@ Read about [GeneratorType](http://swiftdoc.org/v2.1/protocol/GeneratorType/ ), [
 */
 
 class ShellSequence: SequenceType {
-  let n: Int
-  
-  init(n: Int) {
-    self.n = n
-  }
-  
-  func generate() -> AnyGenerator<Int> {
-    var h = n
+    let n: Int
     
-    return anyGenerator {
-      h = h/2
-      return h > 0 ?
-        h :
-        nil
+    init(n: Int) {
+        self.n = n
     }
-  }
+    
+    func generate() -> AnyGenerator<Int> {
+        var h = n
+        
+        return anyGenerator {
+            h = h/2
+            return h > 0 ? h : nil
+        }
+    }
 }
 
 //: Test your code with assert. Make sure asserts don't raise any errors.
@@ -44,26 +42,24 @@ Write a similar class to create a gap sequence of (3 ^ k  - 1) / 2) going as 1, 
 */
 // Knuth's increment sequence h = 3*h+1
 class KnuthSequence: SequenceType {
-  let n: Int
-  
-  init(n: Int) {
-    self.n = n
-  }
-  
-  func generate() -> AnyGenerator<Int> {
-    // find the initial value of h, the biggest one smaller than n
-    var h = 1
-    while h < n/3 {
-      h = 3*h + 1
+    let n: Int
+    
+    init(n: Int) {
+        self.n = n
     }
-    return anyGenerator {
-      let gap = h
-      h = (h - 1)/3
-      return gap > 0 ?
-        gap :
-        nil
+    
+    func generate() -> AnyGenerator<Int> {
+        // find the initial value of h, the biggest one smaller than n
+        var h = 1
+        while h < n/3 {
+            h = 3*h + 1
+        }
+        return anyGenerator {
+            let gap = h
+            h = (h - 1)/3
+            return gap > 0 ? gap : nil
+        }
     }
-  }
 }
 
 assert(Array(KnuthSequence(n: 200)) == [121, 40, 13, 4, 1])
@@ -78,23 +74,23 @@ Write a shell sort by using one of the generators you created above. Knuth's gap
 */
 
 func shellSort<T>(var array: [T], isOrderedBefore: (T, T) -> Bool) -> [T] {
-  guard array.count > 1 else {
-    return array
-  }
-  
-  for h in KnuthSequence(n: array.count) {
-    for i in h..<array.count {
-      let currentItem = array[i]
-      var j = i
-      while j >= h && isOrderedBefore(currentItem, array[j-h]) {
-        array[j] = array[j-h]
-        j -= h
-      }
-      array[j] = currentItem
+    guard array.count > 1 else {
+        return array
     }
-  }
-  
-  return array
+    
+    for h in KnuthSequence(n: array.count) {
+        for i in h..<array.count {
+            let currentItem = array[i]
+            var j = i
+            while j >= h && isOrderedBefore(currentItem, array[j-h]) {
+                array[j] = array[j-h]
+                j -= h
+            }
+            array[j] = currentItem
+        }
+    }
+    
+    return array
 }
 
 let items = ["c", "d", "b", "a"]

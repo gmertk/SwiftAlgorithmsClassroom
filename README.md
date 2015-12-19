@@ -32,7 +32,8 @@ It is better if you are familiar with Swift, at least read [the Swift book from 
 
 If you get stuck at some point, go and check others' solutions. But don't just copy it. After you've read the solution, simply look away, and see what you can recall from you've just read. Try to implement your own solution. Usually the first time you truly understand something is when you can actually do it yourself.
 
-When writing your solutions, follow [the RayWenderlich Swift Style Guide](https://github.com/raywenderlich/swift-style-guide/).
+When writing your solutions, follow [the RayWenderlich Swift Style Guide](https://github.com/raywenderlich/swift-style-guide/). One exception is that I prefer to use 4-space indentation instead of 2.
+
 
 ## Contributing
 Like the idea? You could really help with any of the following:
