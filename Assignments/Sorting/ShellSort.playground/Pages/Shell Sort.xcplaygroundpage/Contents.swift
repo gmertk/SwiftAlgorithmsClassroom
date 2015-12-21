@@ -16,22 +16,21 @@ class ShellSequence: SequenceType {
     }
     
     func generate() -> AnyGenerator<Int> {
-        // YOUR CODE
-        
+        var i = n
         return anyGenerator {
-            // YOUR CODE
-            
-            nil
+            i = i/2
+            guard i > 0 else { return nil }
+            return i
         }
     }
 }
 
 //: Test your code with assert. Make sure asserts don't raise any errors.
 
-//assert(Array(ShellSequence(n: 20)) == [10, 5, 2, 1])
-//assert(Array(ShellSequence(n: 9)) == [4, 2, 1])
-//assert(Array(ShellSequence(n: 2)) == [1])
-//assert(Array(ShellSequence(n: 1)) == [])
+assert(Array(ShellSequence(n: 20)) == [10, 5, 2, 1])
+assert(Array(ShellSequence(n: 9)) == [4, 2, 1])
+assert(Array(ShellSequence(n: 2)) == [1])
+assert(Array(ShellSequence(n: 1)) == [])
 
 
 /*:
@@ -50,15 +49,22 @@ class KnuthSequence: SequenceType {
     }
     
     func generate() -> AnyGenerator<Int> {
-        
+        var i = 1
+        while (i < n/3) {
+            i = 3 * i + 1
+        }
         return anyGenerator {
-            nil
+            defer {
+                i = (i - 1)/3
+            }
+            guard i > 0 else { return nil }
+            return i
         }
     }
 }
 
-//assert(Array(KnuthSequence(n: 200)) == [121, 40, 13, 4, 1])
-//assert(Array(KnuthSequence(n: 10)) == [4, 1])
+assert(Array(KnuthSequence(n: 200)) == [121, 40, 13, 4, 1])
+assert(Array(KnuthSequence(n: 10)) == [4, 1])
 
 /*:
 
@@ -69,9 +75,18 @@ Write a shell sort by using one of the generators you created above. Knuth's gap
 */
 
 func shellSort<T>(var array: [T], isOrderedBefore: (T, T) -> Bool) -> [T] {
+    guard array.count > 1 else { return array }
     
-    for i in KnuthSequence(n: array.count) {
-        
+    for h in KnuthSequence(n: array.count) {
+        for i in h..<array.count {
+            let temp = array[i]
+            var j = i
+            while j > h - 1 && isOrderedBefore(temp, array[j-h]) {
+                array[j] = array[j-h]
+                j = j - h
+            }
+            array[j] = temp
+        }
     }
     
     return array
@@ -79,15 +94,14 @@ func shellSort<T>(var array: [T], isOrderedBefore: (T, T) -> Bool) -> [T] {
 
 let items = ["c", "d", "b", "a"]
 let sortedItems = shellSort(items, isOrderedBefore: <)
-//assert(sortedItems.isSorted())
+assert(sortedItems.isSorted())
 assert(items == ["c", "d", "b", "a"]) // double check that items does not change
 
 assert(shellSort([Int](), isOrderedBefore: <).isSorted())
 assert(shellSort([1], isOrderedBefore: <).isSorted())
 assert(shellSort([1, 2, 3], isOrderedBefore: <).isSorted())
-//assert(shellSort([1, 2, 3], isOrderedBefore: >).isSorted(>))
-//assert(shellSort([3, 0, 2, 1, 2, -1], isOrderedBefore: <).isSorted())
-
+assert(shellSort([1, 2, 3], isOrderedBefore: >).isSorted(>))
+assert(shellSort([3, 0, 2, 1, 2, -1], isOrderedBefore: <).isSorted())
 
 
 /*:
