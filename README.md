@@ -12,8 +12,8 @@ The topics are:
   - [Selection sort](https://github.com/gmertk/SwiftAlgorithmsClassroom/issues/2)
   - [Insertion sort](https://github.com/gmertk/SwiftAlgorithmsClassroom/issues/16)
   - [Shell sort](https://github.com/gmertk/SwiftAlgorithmsClassroom/issues/28)
+  - [Quicksort](https://github.com/gmertk/SwiftAlgorithmsClassroom/issues/34)
   - Mergesort
-  - Quicksort
   - Heapsort, heaps and priority queues
 - Searching
   - Binary search
