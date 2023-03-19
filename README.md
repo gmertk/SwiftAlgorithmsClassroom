@@ -42,5 +42,6 @@ Like the idea? You could really help with any of the following:
 - Write assignments, tutorials, examples, etc.
 - Help others by reviewing their solutions.
 - Fix any bugs you found.
-- Don't forget to be respectful all the time. Please read the [Contributor Code of Conduct](https://github.com/gmertk/SwiftAlgorithmsClassroom/blob/master/COC.md). You agree to abide its terms by participating in this project.
+- Don't forget to be respectful all the time. Please read the [Contributor Code of Conduct](https://github.com/gmertk/SwiftAlgorithmsClassroom/blob/master/COC.md). You agree to abide its terms by participating in this project
 
+- Ahmad Sharafudeen says that this community is amazing.
